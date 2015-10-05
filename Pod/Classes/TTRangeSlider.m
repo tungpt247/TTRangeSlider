@@ -101,7 +101,7 @@ static const CGFloat kLabelsFontSize = 12.0f;
     float yMiddle = currentFrame.size.height/2.0;
     CGPoint lineLeftSide = CGPointMake(barSidePadding, yMiddle);
     CGPoint lineRightSide = CGPointMake(currentFrame.size.width-barSidePadding, yMiddle);
-    self.sliderLine.frame = CGRectMake(lineLeftSide.x, lineLeftSide.y, lineRightSide.x-lineLeftSide.x, 1);
+    self.sliderLine.frame = CGRectMake(lineLeftSide.x, lineLeftSide.y, lineRightSide.x-lineLeftSide.x, 4);
 
     [self updateHandlePositions];
     [self updateLabelPositions];
@@ -171,9 +171,23 @@ static const CGFloat kLabelsFontSize = 12.0f;
     }
 
     NSNumberFormatter *formatter = (self.numberFormatterOverride != nil) ? self.numberFormatterOverride : self.decimalNumberFormatter;
+    if (self.selectedMinimum < 12) {
+        self.minLabel.string = [NSString stringWithFormat: @"%@ %@", [formatter stringFromNumber:@(self.selectedMinimum)], @"AM"];
+    } else if (self.selectedMinimum == 24) {
+        self.minLabel.string = [NSString stringWithFormat: @"%@ %@", [formatter stringFromNumber:@(self.selectedMinimum)], @"AM"];
+    } else {
+        self.minLabel.string = [NSString stringWithFormat: @"%@ %@", [formatter stringFromNumber:@(self.selectedMinimum)], @"PM"];
+    }
 
-    self.minLabel.string = [formatter stringFromNumber:@(self.selectedMinimum)];
-    self.maxLabel.string = [formatter stringFromNumber:@(self.selectedMaximum)];
+    if (self.selectedMaximum < 12) {
+        self.maxLabel.string = [NSString stringWithFormat: @"%@ %@", [formatter stringFromNumber:@(self.selectedMaximum)], @"AM"];
+    } else if (self.selectedMaximum == 24) {
+        self.maxLabel.string = [NSString stringWithFormat: @"%@ %@", [formatter stringFromNumber:@(self.selectedMaximum)], @"AM"];
+    } else {
+        self.maxLabel.string = [NSString stringWithFormat: @"%@ %@", [formatter stringFromNumber:@(self.selectedMaximum)], @"PM"];
+    }
+    // self.minLabel.string = [formatter stringFromNumber:@(self.selectedMinimum)];
+    // self.maxLabel.string = [formatter stringFromNumber:@(self.selectedMaximum)];
 }
 
 #pragma mark - Set Positions
