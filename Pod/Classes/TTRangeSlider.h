@@ -42,6 +42,11 @@ IB_DESIGNABLE
 @property (nonatomic, strong) NSNumberFormatter *numberFormatterOverride;
 
 /**
+	* The color of left and right line views. If not set, the default is the tintColor
+**/
+@property (nonatomic, strong) IBInspectable UIColor *lineColor;
+
+/**
  * The color of the minimum value text label. If not set, the default is the tintColor.
  */
 @property (nonatomic, strong) IBInspectable UIColor *minLabelColour;
